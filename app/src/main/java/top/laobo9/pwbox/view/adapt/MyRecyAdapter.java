@@ -6,7 +6,6 @@ import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 import bean.Data;
@@ -17,24 +16,31 @@ import top.laobo9.pwbox.R;
  */
 
 
-public class MyRecyAdapter extends CommonAdapter<Data> {
-    private Context context;
+public class MyRecyAdapter extends CommonAdapter<Data>{
     public MyRecyAdapter(Context context, int layoutId, List<Data> datas) {
         super(context, layoutId, datas);
     }
 
     @Override
-    protected void convert(ViewHolder holder, Data data, int position) {
+    protected void convert(final ViewHolder holder, final Data data, int position) {
         holder.setText(R.id.item_name,data.getmTitle());
         holder.setText(R.id.item_mark,data.getmMark());
         holder.setText(R.id.item_time,data.getmTime());
-        Field fileid = null;
+        holder.setImageResource(R.id.item_pic,getResourceIdByFilter(data.getmPicname()));
+    }
+
+
+    public int  getResourceIdByFilter(String imageName){
+        Class mipmap = R.drawable.class;
         try {
-            fileid =R.drawable.class.getField(data.getmPicname());
-            holder.setImageResource(R.id.item_pic,Integer.parseInt(fileid.get(null).toString()));
-        } catch (Exception e) {
-            e.printStackTrace();
+            Field field = mipmap.getField(imageName);
+            int resId = field.getInt(imageName);
+            return resId;
+        } catch (NoSuchFieldException e) {
+            return R.drawable.defaultpic;
+        } catch (IllegalAccessException e) {
+            return R.drawable.defaultpic;
         }
-        holder.setImageResource(R.id.item_pic,R.drawable.defaultpic);
+
     }
 }

@@ -1,5 +1,6 @@
 package top.laobo9.pwbox.view;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -50,16 +51,19 @@ public class PicSelecter {
         //适配器
         gridView.setAdapter(simpleAdapter);
         //点击事件监听
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context).setNegativeButton("取消",null)
+                .setTitle("选择图标").setView(layout);
+        final Dialog dialog = builder.show();
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 selectListener.onSelect(position,imagesName[position]);
+                dialog.dismiss();
             }
         });
-        new AlertDialog.Builder(context).setNegativeButton("取消",null)
-                .setTitle("选择图标").setView(layout).show();
     }
     public interface SelectListener{
         void onSelect(int position, String pic_name);

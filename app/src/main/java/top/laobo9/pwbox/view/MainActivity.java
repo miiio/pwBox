@@ -1,9 +1,11 @@
 package top.laobo9.pwbox.view;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,7 +24,9 @@ import android.view.View.OnClickListener;
 
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter.OnItemClickListener;
+import com.zhy.adapter.recyclerview.base.ViewHolder;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -33,6 +37,7 @@ import top.laobo9.pwbox.R;
 import top.laobo9.pwbox.view.Interface.IMainActivity;
 import top.laobo9.pwbox.view.adapt.MyPagerAdapter;
 import top.laobo9.pwbox.view.adapt.MyRecyAdapter;
+import top.laobo9.pwbox.view.PicSelecter;
 
 
 public class MainActivity extends AppCompatActivity
@@ -150,6 +155,65 @@ public class MainActivity extends AppCompatActivity
         rv_website.setAdapter(rva_website);
     }
 
+
+    class MyRecyAdapter extends CommonAdapter<Data>{
+        public MyRecyAdapter(Context context, int layoutId, List<Data> datas) {
+            super(context, layoutId, datas);
+        }
+
+        @Override
+        protected void convert(final ViewHolder holder, final Data data, final int position) {
+            holder.setText(R.id.item_name,data.getmTitle());
+            holder.setText(R.id.item_mark,data.getmMark());
+            holder.setText(R.id.item_time,data.getmTime());
+            holder.setImageResource(R.id.item_pic,getResourceIdByFilter(data.getmPicname()));
+
+            holder.setOnClickListener(R.id.item_pic, new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Data data_tmp=null;
+                    int viewPageid = viewPager.getCurrentItem();
+                    switch (viewPageid){
+                        case 0:
+                            data_tmp = mData_s.get(position);
+                            break;
+                        case 1:
+                            data_tmp = mData_g.get(position);
+                            break;
+                        case 2:
+                            data_tmp = mData_w.get(position);
+                            break;
+                    }
+                    final Data data_ = data_tmp;
+                    new PicSelecter(MainActivity.this, new PicSelecter.SelectListener() {
+                        @Override
+                        public void onSelect(int position, String pic_name) {
+                            data_.setmPicname(pic_name);
+                            mMainPresenter.editData(data_);
+                            Snackbar.make(toolbar,"更换图标成功!",Snackbar.LENGTH_LONG).show();
+                        }
+                    }).show();
+                }
+            });
+        }
+
+
+        public int  getResourceIdByFilter(String imageName){
+            Class mipmap = R.drawable.class;
+            try {
+                Field field = mipmap.getField(imageName);
+                int resId = field.getInt(imageName);
+                return resId;
+            } catch (NoSuchFieldException e) {
+                return R.drawable.defaultpic;
+            } catch (IllegalAccessException e) {
+                return R.drawable.defaultpic;
+            }
+
+        }
+    }
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -216,6 +280,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+            startActivityForResult(intent,CODE_SETTING);
             return true;
         }
 
