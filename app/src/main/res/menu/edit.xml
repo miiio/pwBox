@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.EditActivity">
+
+
+
+    <item android:id="@+id/menu_selectpic"
+        android:title="更换图标"
+        android:orderInCategory="100"
+        android:icon="@drawable/addraw"
+        app:showAsAction="always" />
+
+</menu>

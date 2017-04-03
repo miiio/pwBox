@@ -13,19 +13,30 @@ public class Data implements Serializable {
     private String mUsername;
     private String mPassword;
     private String mMark;
-
-
+    private String mPicname;
     private String mTime;
 
     private int mType;
-    public Data(int id,String mTitle, String mUsername, String mPassword,String mMark,int type,String mTime) {
+    public Data(int id,String Title, String Username, String Password,String Mark,int type,String Time,String Picname) {
         this.Id = id;
-        this.mTitle = mTitle;
-        this.mUsername = mUsername;
-        this.mPassword = mPassword;
-        this.mMark = mMark;
+        this.mTitle = Title;
+        this.mUsername = Username;
+        this.mPassword = Password;
+        this.mMark = Mark;
         this.mType = type;
-        this.mTime = mTime;
+        this.mTime = Time;
+        this.mPicname = Picname;
+    }
+
+    public Data(int id,String Title, String Username, String Password,String Mark,int type,String Time) {
+        this.Id = id;
+        this.mTitle = Title;
+        this.mUsername = Username;
+        this.mPassword = Password;
+        this.mMark = Mark;
+        this.mType = type;
+        this.mTime = Time;
+        this.mPicname = "defaultpic";
     }
 
     public String getmTitle() {
@@ -83,4 +94,13 @@ public class Data implements Serializable {
     public void setmTime(String mTime) {
         this.mTime = mTime;
     }
+
+    public String getmPicname() {
+        return mPicname;
+    }
+
+    public void setmPicname(String mPicname) {
+        this.mPicname = mPicname;
+    }
+
 }

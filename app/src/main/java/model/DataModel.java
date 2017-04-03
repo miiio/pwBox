@@ -23,7 +23,7 @@ public class DataModel implements IDataModel {
         db = context.openOrCreateDatabase("/data/data/top.laobo9.pwbox/data.db", Context.MODE_PRIVATE, null);
         db.execSQL("CREATE  TABLE IF NOT EXISTS alldata" +
                 "(_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT," +
-                " username VARCHAR, password VARCHAR, mark VARCHAR,type INTEGER, subtime VARCHAR)");
+                " username VARCHAR, password VARCHAR, mark VARCHAR,type INTEGER, subtime VARCHAR, picname VARCHAR)");
     }
 
     public DataModel(Context context) {
@@ -38,9 +38,9 @@ public class DataModel implements IDataModel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        db.execSQL( "insert into alldata(title,username,password,mark,type,subtime) " +
+        db.execSQL( "insert into alldata(title,username,password,mark,type,subtime,picname) " +
                 "values('"+data.getmTitle()+"','"+data.getmUsername()+"','"+
-                data.getmPassword()+"','"+data.getmMark()+"',"+data.getmType()+",'"+data.getmTime()+"')");
+                data.getmPassword()+"','"+data.getmMark()+"',"+data.getmType()+",'"+data.getmTime()+"','"+data.getmPicname()+"')");
         int ret = -1;//添加之后返回其id
         Cursor c = db.rawQuery("select max(_id)  from alldata",null);
         c.moveToNext();
@@ -67,6 +67,7 @@ public class DataModel implements IDataModel {
                     , c.getString(c.getColumnIndex("mark"))
                     , c.getInt(c.getColumnIndex("type"))
                     , c.getString(c.getColumnIndex("subtime"))
+                    , c.getString(c.getColumnIndex("picname"))
             ));
         }
         c.close();
@@ -84,7 +85,8 @@ public class DataModel implements IDataModel {
         db.execSQL("update alldata set title='"+data.getmTitle()+"'," +
                 "username='"+data.getmUsername()+"', " +
                 "password='"+data.getmPassword()+"', " +
-                "mark='"+data.getmMark()+"',subtime='"+data.getmTime()+"' where _id="+id);
+                "mark='"+data.getmMark()+"',subtime='"+data.getmTime()+"', " +
+                "picname='"+data.getmPicname()+"' where _id="+id);
     }
 
     @Override
