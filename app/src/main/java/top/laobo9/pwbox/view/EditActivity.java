@@ -34,6 +34,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         mType = bundle.getInt("type");
