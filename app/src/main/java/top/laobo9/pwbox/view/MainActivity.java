@@ -25,6 +25,7 @@ import com.zhy.adapter.recyclerview.MultiItemTypeAdapter.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import bean.Data;
 import presenter.MainPresenter;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity
         OnItemClickListener{
     public static final int CODE_ADD = 719;
     public static final int CODE_EDIT = 944;
+    public static final int CODE_SETTING = 537;
     private Toolbar toolbar;
     private FloatingActionButton fab;
     private DrawerLayout drawer;
@@ -67,11 +69,32 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //先验证是否需要手势密码
+        checkPw();
         setContentView(R.layout.activity_main);
         getView();
         initView();
         mMainPresenter = new MainPresenter(this,getApplicationContext());
         mMainPresenter.ShowAll();
+    }
+
+    private boolean checkPw(){
+        Intent tmp = getIntent();
+        if(tmp.getStringExtra("flag")==null){
+            Properties mProp = util.util.loadConfig(this);
+            String pw = null;
+            if(mProp.size()!=0){
+                pw = mProp.getProperty("pw");
+                if(!pw.equals("null")){
+                    Intent intent = new Intent(this,LockActivity.class);
+                    intent.putExtra("pw",pw);
+                    startActivity(intent);
+                    finish();
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     private void getView(){
@@ -82,7 +105,6 @@ public class MainActivity extends AppCompatActivity
         tabLayout = (TabLayout)findViewById(R.id.tabLayout);
         viewPager = (ViewPager)findViewById(R.id.viewPage);
     }
-
     private void initView(){
         setSupportActionBar(toolbar);
         toggle = new ActionBarDrawerToggle(
@@ -159,6 +181,12 @@ public class MainActivity extends AppCompatActivity
                 ret = (Data) b.getSerializable("data");
                 mMainPresenter.editData(ret);
                 break;
+            case CODE_SETTING:
+                if(data.getStringExtra("initdb").equals("yes")){
+                    mMainPresenter.initdb();
+                    mMainPresenter.ShowAll();
+                }
+                break;
         }
     }
 
@@ -204,7 +232,7 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
         } else if (id == R.id.nav_setting) {
             Intent intent = new Intent(MainActivity.this,SettingActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent,CODE_SETTING);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

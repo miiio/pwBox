@@ -18,8 +18,7 @@ public class DataModel implements IDataModel {
     private SQLiteDatabase db;
     private Context context;
     private DesUtils jcush;
-    private void initDB(){
-
+    public void initDB(){
         jcush = new DesUtils(DesUtils.keyyy[82]+DesUtils.keyyy[34]);
         db = context.openOrCreateDatabase("/data/data/top.laobo9.pwbox/data.db", Context.MODE_PRIVATE, null);
         db.execSQL("CREATE  TABLE IF NOT EXISTS alldata" +
@@ -92,4 +91,5 @@ public class DataModel implements IDataModel {
     public void DeleteData(int id) {
         db.execSQL("delete from alldata where _id="+id);
     }
+
 }

@@ -39,7 +39,7 @@ public class UnLockView extends View {
     private String mRightPsw;
 
 
-    private boolean isok;
+    private boolean isok = false;
     private StringBuilder mInputPsw;
     private Context mContext;
     private ResponseInput object;
@@ -165,7 +165,6 @@ public class UnLockView extends View {
                 break;
                 case MotionEvent.ACTION_UP: {
                     Log.d(TAG, "ACTION_UP");
-                    object.onEnd(mInputPsw.toString());
                     //TODO 判断密码是否正确
                     if (isInputOK()) {
 
@@ -176,7 +175,7 @@ public class UnLockView extends View {
                         // Toast.makeText(mContext, "密码错误: "+mInputPsw, Toast.LENGTH_SHORT).show();
                     }
                     //uninit();
-
+                    object.onEnd(mInputPsw.toString());
                 }
                 break;
             }

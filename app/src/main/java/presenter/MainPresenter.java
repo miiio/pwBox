@@ -20,6 +20,10 @@ public class MainPresenter {
         this.mContext = context;
         mDataModel = new DataModel(context);
     }
+    public void initdb(){
+        mDataModel.initDB();
+    }
+
     public void editData(Data data){
         mDataModel.EditData(data);
         ShowAll();

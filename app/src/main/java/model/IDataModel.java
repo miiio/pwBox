@@ -13,4 +13,5 @@ public interface IDataModel {
     List<Data> getAllData();
     void EditData(Data data);
     void DeleteData(int id);
+    void initDB();
 }
