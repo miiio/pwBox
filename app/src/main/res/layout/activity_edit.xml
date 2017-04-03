@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBack"
+    android:fitsSystemWindows="true">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/add_toolbar"
+        android:fitsSystemWindows="true"
+        app:theme="@style/AppTheme.AppBarOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+    </android.support.v7.widget.Toolbar>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/add_title"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:met_floatingLabel="normal"
+        android:hint="标题"
+        android:lines="1"
+        app:met_clearButton = "true"
+        app:met_iconLeft="@drawable/title"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/add_username"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:met_floatingLabel="normal"
+        android:hint="账号"
+        android:lines="1"
+        app:met_clearButton = "true"
+        app:met_iconLeft="@drawable/username"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/add_pw"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:met_floatingLabel="normal"
+        android:hint="密码"
+        android:lines="1"
+        app:met_clearButton = "true"
+        app:met_iconLeft="@drawable/password"/>
+
+    <EditText
+        android:id="@+id/add_mark"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="top"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:minLines="1"
+        android:maxLines="10"
+        android:padding="10dp"
+        android:hint="说点什么吧..."
+        android:background="@drawable/edittext"
+        android:inputType="textMultiLine"/>
+
+    <Button
+        android:id="@+id/add_btn"
+        android:text="添加"
+        android:textSize="16sp"
+        android:textColor="@color/colorWhite"
+        android:background="@color/colorPrimary"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_width="200dp"
+        android:layout_height="50dp" />
+</LinearLayout>
