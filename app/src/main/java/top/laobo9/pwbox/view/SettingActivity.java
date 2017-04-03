@@ -86,20 +86,20 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                     Properties prop = new Properties();
                     prop.put("pw", "null");
                     util.util.saveConfig(this, prop);
-                    Snackbar.make(v,"手势密码验证已取消!",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(v,"手势密码验证已取消!",Snackbar.LENGTH_LONG).show();
                 }
                 break;
             case R.id.setting_backup:
                 if(util.util.backupData("/mnt/sdcard/pwBoxBackUp/")){
-                    Snackbar.make(v,":)数据已备份,备份文件存放于/mnt/sdcard/pwBoxBackUp/",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(v,":)数据已备份,备份文件存放于/mnt/sdcard/pwBoxBackUp/",Snackbar.LENGTH_LONG).show();
                 }else{
-                    Snackbar.make(v,"备份失败...!",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(v,"备份失败...!",Snackbar.LENGTH_LONG).show();
                 }
                 break;
             case R.id.setting_rebackup:
                 Vector<String> file = util.util.getBackUpFileName("/mnt/sdcard/pwBoxBackUp/");
                 if(file.size()==0){
-                    Snackbar.make(toolbar,"请把要恢复的备份放在/sdcard/pwBoxBackUp/下",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(toolbar,"请把要恢复的备份放在/sdcard/pwBoxBackUp/下",Snackbar.LENGTH_LONG).show();
                 }
                 else{
                     showBackUpList(file);
@@ -116,7 +116,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                         Intent intent = new Intent();
                         intent.putExtra("initdb","yes");
                         setResult(MainActivity.CODE_SETTING,intent);
-                        Snackbar.make(toolbar,"数据已重置...",Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(toolbar,"数据已重置...",Snackbar.LENGTH_LONG).show();
                     }
                 });
                 builder.setNegativeButton("取消",null).show();
@@ -125,7 +125,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
     public void showBackUpList(final Vector<String> file){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("请选择一个备份(现保存的记录将被清空！):");
+        builder.setTitle("请选择一个备份:");
         final String[] items = (String[]) file.toArray(new String[0]);/*设置列表的内容*/
         builder.setNegativeButton("取消",null);
         builder.setItems(items, new DialogInterface.OnClickListener() {/*设置列表的点击事件*/
@@ -144,9 +144,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             Intent intent = new Intent();
             intent.putExtra("initdb","yes");
             setResult(MainActivity.CODE_SETTING,intent);
-            Snackbar.make(toolbar,"还原备份成功!",Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(toolbar,"还原备份成功!",Snackbar.LENGTH_LONG).show();
         }else{
-            Snackbar.make(toolbar,"还原备份失败!",Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(toolbar,"还原备份失败!",Snackbar.LENGTH_LONG).show();
         }
     }
 }

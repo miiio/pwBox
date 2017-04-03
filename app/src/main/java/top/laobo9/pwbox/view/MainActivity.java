@@ -284,7 +284,6 @@ public class MainActivity extends AppCompatActivity
             startActivityForResult(intent,CODE_SETTING);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
