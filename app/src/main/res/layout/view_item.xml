@@ -21,8 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
+            android:id="@+id/item_pic"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/pwic"
             android:layout_gravity="center_vertical"
             android:scaleType="fitXY"
             android:layout_width="50dp"
